@@ -8,8 +8,14 @@ mkdir build
 export PKG_CONFIG_PATH=/usr/local/opt/openssl/lib/pkgconfig 
 cd build
 cmake ..
+
+CMAKE_OPTIONS=''
+if [ $(uname) = 'Darwin' ]; then
+    CMAKE_OPTIONS='-DOPENSSL_ROOT_DIR=/usr/local/opt/openssl'
+fi
+
+cmake "$CMAKE_OPTIONS" ..
 make 
 sudo make install
-cd ..
-cd ..
+cd ../../
 sudo rm -r uWebSockets
